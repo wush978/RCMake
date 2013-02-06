@@ -1,9 +1,11 @@
 Package: RCmake
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
+Title: Generate IDE project for developing R extension with CMake
+Version: 0.1
 Date: 2013-02-06
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Wush Wu
+Maintainer: Wush Wu <wush978@gmail.com>
+Description: Generate IDE project for developing R extension with CMake
+License: GPL
+Collate:
+    'create.package.R'
