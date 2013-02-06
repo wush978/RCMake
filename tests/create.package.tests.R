@@ -4,3 +4,7 @@ a <- 1
 
 create.R.project("test", "a", force=TRUE)
 stopifnot(file.exists(normalizePath("test/CMakeLists.txt")))
+
+cmakelists <- readLines("test/CMakeLists.txt")
+stopifnot(gregexpr("@.*@", cmakelists)[[1]] == -1)
+
