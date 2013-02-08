@@ -9,3 +9,4 @@ Description: Generate IDE project for developing R extension with CMake
 License: GPL
 Collate:
     'create.package.R'
+    'execute.cmake.R'
