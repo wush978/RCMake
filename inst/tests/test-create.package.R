@@ -1,7 +1,7 @@
 context("create.package.R")
 
 test_that("Generate CMakeLists.txt correctly with R only", {
-	pkg_name <- "testR"
+	pkg_name <- "RCmakeTestR"
 	create.R.project(name=pkg_name)
 	expect_true(file.exists(normalizePath(paste( pkg_name, "CMakeLists.txt", sep="/"))))
 	cmakelists <- readLines(paste( pkg_name, "CMakeLists.txt", sep="/"))
@@ -13,7 +13,7 @@ test_that("Generate CMakeLists.txt correctly with R only", {
 test_that("Generate CMakeLists.txt correctly with Rcpp", {
 	expect_true(require(Rcpp))
 	assign("a", value=1.0, envir=.GlobalEnv)
-	pkg_name <- "testRcpp"
+	pkg_name <- "RCmakeTestRcpp"
 	create.Rcpp.project(name=pkg_name)
 	expect_true(file.exists(normalizePath(paste( pkg_name, "CMakeLists.txt", sep="/"))))
 	cmakelists <- readLines(paste( pkg_name, "CMakeLists.txt", sep="/"))
