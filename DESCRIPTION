@@ -1,4 +1,4 @@
-Package: RCmake
+Package: RCMake
 Type: Package
 Title: Generate IDE project for developing R extension with CMake
 Version: 0.1
