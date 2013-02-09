@@ -33,6 +33,19 @@ get_roxygenize <- function(is_roxygenize, roclets) {
 	return(sprintf("stopifnot(require(roxygen2));roxygenize('${CMAKE_SOURCE_DIR}',roclets=%s)", roclets))
 }
 
+#'@title Create CMake script for R extension
+#'
+#'@description Create CMake script with:
+#'- add ${R_HOME}/include into include directories
+#'- add \code{R CMD INSTALL} as build tools
+#'
+#'@param name name of project
+#'@param path the \code{CMakeLists.txt} will be created at \code{path}/\code{name}
+#'@param is_roxygenize If call R to execute \code{roxygenize} before building or not
+#'@param roclets A parameter which will be passed to \code{roxygenize}. Please see 
+#'\code{\link{roxygenize}}
+#'@param includes_directory Additional include directories
+#'
 #'@export
 create.R.project <- function (
 	name = "anRpackage", 
@@ -50,14 +63,30 @@ create.R.project <- function (
 	write(cmakelists, file=normalizePath(paste(pkg.root, 'CMakeLists.txt', sep='/'), mustWork=FALSE))
 }
 
+#'@title Create CMake script for R extension with Rcpp
+#'
+#'@description Create CMake script with:
+#'- add ${R_HOME}/include into include directories
+#'- add ${R_CPP_ROOT}/include into include directories
+#'- add \code{R CMD INSTALL} as build tools
+#'
+#'@param name name of project
+#'@param path the \code{CMakeLists.txt} will be created at \code{path}/\code{name}
+#'@param is_roxygenize If call R to execute \code{roxygenize} before building or not
+#'@param roclets A parameter which will be passed to \code{roxygenize}. Please see 
+#'\code{\link{roxygenize}}
+#'@param includes_directory Additional include directories
+#'@seealso \code{\link{create.R.project}}
+#'
 #'@export
 create.Rcpp.project <- function(
 	name = "anRpackage", 
 	path = ".", 
 	is_roxygenize = FALSE,
 	roclets = c("collate", "namespace", "rd"),
-	includes_directory = system.file("include", package="Rcpp")) 
+	includes_directory = c()) 
 {
+	includes_directory <- c(system.file("include", package="Rcpp"), includes_directory)
 	create.R.project(
 		name=name,
 		path=path,

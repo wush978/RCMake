@@ -1,3 +1,5 @@
+#'@title List available IDEs on the platform
+#'@value Available IDEs on the platform
 #'@export
 list.IDE <- function(is_tolower = TRUE) {
 	result <- system("cmake --help", intern=TRUE)
@@ -16,7 +18,6 @@ list.IDE <- function(is_tolower = TRUE) {
 		return(str_trim(result))
 }
 
-#'@export
 get.IDE <- function(ide) {
 	if (length(ide) > 1) {
 		warnings("only the first element of \"ide\" will be used")
@@ -35,6 +36,11 @@ get.IDE <- function(ide) {
 	return(result[result.index])
 }
 
+#'@title Execute \code{cmake}
+#'@param cmakelists.path Location of \code{CMakeLists.txt}
+#'@param IDE Integer or character. Integer indicates that the IDE-th element of \code{list.IDE()} will
+#'be generated. Character will use \code{pmatch} to find the IDE in \code{list.IDE()}.
+#'@param argv Additional arguments passed to \code{CMake}
 #'@export 
 execute.cmake <- function(cmakelists.path, IDE = 1L, argv = "") {
 	IDE <- get.IDE(IDE)
