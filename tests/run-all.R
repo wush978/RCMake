@@ -1,5 +1,5 @@
 library(testthat)
-library(RCmake)
+library(RCMake)
 
 cat("run-all.R\n")
-test_package("RCmake")
+test_package("RCMake")

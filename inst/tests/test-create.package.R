@@ -1,5 +1,5 @@
 context("create.package.R")
-library(RCmake)
+library(RCMake)
 
 test_that("Generate CMakeLists.txt correctly with R", {
 	pkg_name <- "RCmakeTestR"
@@ -12,7 +12,7 @@ test_that("Generate CMakeLists.txt correctly with R", {
 	dir.create(build.dir)
 	print(build.dir)
 	setwd(build.dir)
-	expect_true(execute.cmake(system.file(paste("tests", pkg_name, sep="/"), package="RCmake")) == 0)
+	expect_true(execute.cmake(system.file(paste("tests", pkg_name, sep="/"), package="RCMake")) == 0)
 	expect_true(system("make") == 0)
 	setwd(origin.wd)
 	expect_output(installed.packages()[,"Package"], pkg_name)
@@ -32,7 +32,7 @@ test_that("Generate CMakeLists.txt correctly with Rcpp", {
 	dir.create(build.dir)
 	print(build.dir)
 	setwd(build.dir)
-	expect_true(execute.cmake(system.file(paste("tests", pkg_name, sep="/"), package="RCmake")) == 0)
+	expect_true(execute.cmake(system.file(paste("tests", pkg_name, sep="/"), package="RCMake")) == 0)
 	expect_true(system("make") == 0)
 	setwd(origin.wd)
 	expect_output(installed.packages()[,"Package"], pkg_name)

@@ -40,7 +40,7 @@ execute.cmake <- function(cmakelists.path, IDE = 1L, argv = "") {
 	IDE <- get.IDE(IDE)
 	system(sprintf("cmake %s -DLibR_DIR=%s -G \"%s\" %s", 
 								 cmakelists.path, 
-								 system.file("", package="RCmake"), 
+								 system.file("", package="RCMake"), 
 								 IDE,
 								 argv))
 }
