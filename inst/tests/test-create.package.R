@@ -1,13 +1,22 @@
 context("create.package.R")
+library(RCmake)
 
-test_that("Generate CMakeLists.txt correctly with R only", {
+test_that("Generate CMakeLists.txt correctly with R", {
 	pkg_name <- "RCmakeTestR"
 	create.R.project(name=pkg_name)
 	expect_true(file.exists(normalizePath(paste( pkg_name, "CMakeLists.txt", sep="/"))))
 	cmakelists <- readLines(paste( pkg_name, "CMakeLists.txt", sep="/"))
 	expect_true(gregexpr("@.*@", cmakelists)[[1]] == -1)
-	
-	unlink(paste( pkg_name, "man", sep="/"), recursive=TRUE)
+	origin.wd <- getwd()
+	build.dir <- paste(tempdir(), pkg_name, sep="/")
+	dir.create(build.dir)
+	print(build.dir)
+	setwd(build.dir)
+	expect_true(execute.cmake(system.file(paste("tests", pkg_name, sep="/"), package="RCmake")) == 0)
+	expect_true(system("make") == 0)
+	setwd(origin.wd)
+	expect_output(installed.packages()[,"Package"], pkg_name)
+	remove.packages(pkg_name)
 })
 
 test_that("Generate CMakeLists.txt correctly with Rcpp", {
@@ -18,6 +27,15 @@ test_that("Generate CMakeLists.txt correctly with Rcpp", {
 	expect_true(file.exists(normalizePath(paste( pkg_name, "CMakeLists.txt", sep="/"))))
 	cmakelists <- readLines(paste( pkg_name, "CMakeLists.txt", sep="/"))
 	expect_true(gregexpr("@.*@", cmakelists)[[1]] == -1)
-	
-	unlink(paste( pkg_name, "man", sep="/"), recursive=TRUE)
+	origin.wd <- getwd()
+	build.dir <- paste(tempdir(), pkg_name, sep="/")
+	dir.create(build.dir)
+	print(build.dir)
+	setwd(build.dir)
+	expect_true(execute.cmake(system.file(paste("tests", pkg_name, sep="/"), package="RCmake")) == 0)
+	expect_true(system("make") == 0)
+	setwd(origin.wd)
+	expect_output(installed.packages()[,"Package"], pkg_name)
+	remove.packages(pkg_name)
 })
+

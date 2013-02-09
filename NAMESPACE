@@ -1,3 +1,5 @@
 export(create.Rcpp.project)
 export(create.R.project)
 export(execute.cmake)
+export(get.IDE)
+export(list.IDE)

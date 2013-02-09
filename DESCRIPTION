@@ -7,6 +7,8 @@ Author: Wush Wu
 Maintainer: Wush Wu <wush978@gmail.com>
 Description: Generate IDE project for developing R extension with CMake
 License: GPL
+Depends:
+    stringr
 Collate:
     'create.package.R'
     'execute.cmake.R'
