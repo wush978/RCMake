@@ -39,3 +39,21 @@ test_that("Generate CMakeLists.txt correctly with Rcpp", {
 	remove.packages(pkg_name)
 })
 
+test_that("Generate CMakeLists.txt correctly for Roxygenize", {
+	expect_true(require(Rcpp))
+	pkg_name <- "RCMakeTestRoxygenize"
+	create.Rcpp.project(name=pkg_name, is_roxygenize=TRUE)
+	expect_true(file.exists(normalizePath(paste( pkg_name, "CMakeLists.txt", sep="/"))))
+	cmakelists <- readLines(paste( pkg_name, "CMakeLists.txt", sep="/"))
+	expect_true(gregexpr("@.*@", cmakelists)[[1]] == -1)
+	origin.wd <- getwd()
+	build.dir <- paste(tempdir(), pkg_name, sep="/")
+	dir.create(build.dir)
+	print(build.dir)
+	setwd(build.dir)
+	expect_true(execute.cmake(system.file(paste("tests", pkg_name, sep="/"), package="RCMake")) == 0)
+	expect_true(system("make") == 0)
+	setwd(origin.wd)
+	expect_output(installed.packages()[,"Package"], pkg_name)
+	remove.packages(pkg_name)
+})
