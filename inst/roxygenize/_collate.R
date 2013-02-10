@@ -1,0 +1,5 @@
+stopifnot(require(methods))
+stopifnot(require(utils))
+stopifnot(require(roxygen2))
+argv <- commandArgs(TRUE)
+roxygenize(argv[1], roclets = "collate")
